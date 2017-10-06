@@ -1,4 +1,5 @@
-//main.c
+//main.c Zadanie 2.
+//Zmodyfikuj program z zadania 1 tak, aby teksty pozdrowienia były pobierane z wiersza polecenia.
 
 #include <stdio.h>
 #include <stdlib.h>
