@@ -1,5 +1,10 @@
-//main.c Zadanie 4: Zmodyfikuj program z zadania 3 tak, aby w zależności od zadanych opcji wyświetlał informację o systemie (opcja –s)
-//lub o podanym użytkowniku (opcja –u nazwa). Wskazówka: użyj funkcji getopt().
+/*main.c Zadanie 3,4: Napisz program, który wyświetla pełną informację o systemie, w którym został uruchomiony program, podaje nazwę
+użytkownika, który uruchomił program, jego UID oraz imię i nazwisko.
+Wskazówka: Odszukaj opis funkcji getlogin(), getuid(), getpwent(), getpwuid(), getpwnam(),
+uname(), gethostname().
+b) Dołącz obsługę błędów funkcji systemowych. Zwróć uwagę na zerowanie zmiennej errno. Dlaczego jest ono
+wymagane?Zmodyfikuj program z zadania 3 tak, aby w zależności od zadanych opcji wyświetlał informację o systemie (opcja –s)
+lub o podanym użytkowniku (opcja –u nazwa). Wskazówka: użyj funkcji getopt().*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,7 +66,7 @@ void UserInfo(char *login)
 	if((opis=getpwnam(login))==NULL)
   	{
 		fprintf(stderr,"Uzytkownik: %s nie istnieje.\n",login);
-    	exit(-1);
+    		exit(-1);
   	}
 	printf("Uzytkownik:\n");
 	printf("\tuser name: %s\n",opis->pw_name);
