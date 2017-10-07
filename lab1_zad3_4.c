@@ -14,7 +14,6 @@ lub o podanym użytkowniku (opcja –u nazwa). Wskazówka: użyj funkcji getopt(
 #include <sys/utsname.h>
 #include <errno.h>
 
-errno = 0;
 struct utsname utsname;
 struct passwd *opis;
 
