@@ -23,6 +23,16 @@ void UserInfo(char *login);
 
 int main(int argc, char *argv[])
 {
+	if(argc < 2)
+    	{
+        fprintf(stderr, "Niepoprawne wywolanie. Za malo parametrow! Wywolanie: ./prog4 -s lub ./prog4 -u [username]\n");
+        exit(-1);
+    	}
+    	if(argc > 3)
+    	{
+        fprintf(stderr, "Niepoprawne wywolanie. Za duzo parametrow! Wywolanie: ./prog4 -s lub ./prog4 -u [username]\n");
+        exit(-1);
+    	}
 	int opt;
 	char optstring[] = ":su:";
 
