@@ -1,0 +1,23 @@
+#obiekty
+OBJ = test.o randapi.o initapi.o
+#parametry wywołania
+FLAGS = -Wall
+#rodzaj kompilatora
+CC = gcc
+#wskazanie na pliki nagłówkowe/źródłowe z innego katalogu
+INCLUDE =
+#wskazanie na bibliotekę współdzieloną(domyślna)
+LIBS = -lm
+
+
+#kompilacja programu, $@ oznacza nazwę programu(zad7), konieczne taby!
+zad7: $(OBJ)
+	$(CC) $(OBJ) -o $@ 
+
+#tworzenie obiektów z plików *.c bez linkowania $< oznacza nazwe pliku, który wywołał akcję
+%.o:%.c
+	$(CC) $(FLAGS) -c $<
+
+#czyszczenie w przypadku niepoprawnego wywołania którejkolwiek z komend
+clean:
+	rm *.o $@
