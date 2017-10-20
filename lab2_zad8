@@ -1,0 +1,41 @@
+#Zadanie 8
+#Utwórz bibliotekę statyczną dla funkcji z katalogu przyklad2. Zmodyfikuj plik Makefile tak, aby można było
+#kompilować program z wykorzystaniem biblioteki statycznej. Uruchom przykładowy program.
+
+#tworzymy obiekty do biblioteki:
+
+gcc –c randapi.c initapi.c
+
+#dodajemy binarki do nowotworzonej biblioteki, np. libtest.a:
+#r dodaj plik do archiwum
+#c utwórz archiwum, jeśli nie istnieje
+#s zapisz indeks plików obiektowych do archiwum 
+
+ar rcs -libtest randapi.o initapi.o 
+
+#zmodyfikowany plik Makefile:
+
+#obiekty
+OBJ= test.o
+#parametry wywołania
+FLAGS = -Wall
+#rodzaj kompilatora
+CC = gcc
+#wskazanie na pliki nagłówkowe z innego katalogu
+INCLUDE =
+#wskazanie na statyczną bibliotekę test w lokalizacji ./
+LDFLAGS = -L. -ltest
+LIBS = libtest.a
+
+
+#kompilacja programu, $@ oznacza nazwę programu(zad7)
+zad7: $(OBJ)
+	$(CC) $(OBJ) -o $@ $(LIBS) $(LDFLAGS)
+
+#tworzenie obiektów z plików *.c bez linkowania $< oznacza nazwe pliku, który wywołał akcję
+%.o:%.c
+	$(CC) $(FLAGS) -c $<
+
+#czyszczenie w przypadku niepoprawnego wywołania którejkolwiek z komend
+clean:
+	rm *.o $@
