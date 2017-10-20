@@ -1,0 +1,45 @@
+#Zadanie 9
+#Utwórz bibliotekę współdzieloną dla funkcji z katalogu przyklad2. Zmodyfikuj plik Makefile tak, aby można było
+#kompilować program z wykorzystaniem biblioteki współdzielonej. Uruchom przykładowy program. 
+
+#Kompilacja z użyciem -fPIC:
+gcc -fPIC -c randapi.c initapi.c
+#Utworzenie biblioteki współdzielonej w katalogu bieżącym:
+gcc -shared -Wl,-soname,libtest.so.1 -o libtest.so.1.0 randapi.o initapi.o
+#Niezbędne linkowanie:
+ln –s libhello.so.1.0 libhello.so.1
+ln –s libhello.so.1 libhello.so
+#Utworzenie lokalnej zmiennej środowiskowej zawierającej katalog bieżący:
+export SCIEZKA=$(pwd)
+#Opcjonalnie można sprawdzić czy dobrze zapisało ścieżkę:
+cat $SCIEZKA
+############################################################################################
+#Zmodyfikowany Makefile:
+#obiekty
+OBJ= test.o
+#parametry wywołania
+FLAGS = -Wall
+#rodzaj kompilatora
+CC = gcc
+#wskazanie na pliki nagłówkowe z innego katalogu
+INCLUDE =
+#wskazanie na bibliotekę dynamiczna test w lokalizacji SCIEZKA
+LDFLAGS = -L$(SCIEZKA) -ltest
+LIBS = libtest.so
+
+
+#kompilacja programu, $@ oznacza nazwę programu(zad7)
+zad7: $(OBJ)
+	$(CC) $(OBJ) -o $@ $(LIBS) $(LDFLAGS)
+
+#tworzenie obiektów z plików *.c bez linkowania $< oznacza nazwe pliku, który wywołał akcję
+%.o:%.c
+	$(CC) $(FLAGS) -c $<
+
+#czyszczenie w przypadku niepoprawnego wywołania którejkolwiek z komend
+clean:
+	rm *.o $@
+###########################################################################################
+#uruchamiamy program w ten sposób:
+LD_LIBRARY_PATH=$SCIEZKA ./zad7
+
