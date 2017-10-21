@@ -2,7 +2,7 @@
 #Utwórz bibliotekę współdzieloną dla funkcji z katalogu przyklad2. Zmodyfikuj plik Makefile tak, aby można było
 #kompilować program z wykorzystaniem biblioteki współdzielonej. Uruchom przykładowy program. 
 
-#Kompilacja z użyciem -fPIC:
+#Kompilacja z użyciem -fPIC: Mozna tez z uzyciem Makefile2 ponizej.
 gcc -fPIC -c randapi.c initapi.c
 #Utworzenie biblioteki współdzielonej w katalogu bieżącym:
 gcc -shared -Wl,-soname,libtest.so.1 -o libtest.so.1.0 randapi.o initapi.o
@@ -40,6 +40,28 @@ zad7: $(OBJ)
 clean:
 	rm *.o $@
 ###########################################################################################
+
+#Plik Makefile2 do tworzenia biblioteki:
+CC = gcc                               
+CFLAGS = -fPIC -Wall
+LDFLAGS = -shared
+RM = rm -f
+TARGET_LIB = libtest.so
+
+SRCS = randapi.c initapi.c
+OBJS = randapi.o initapi.o
+
+
+all: ${TARGET_LIB}
+
+$(TARGET_LIB): $(OBJS)
+	$(CC) ${LDFLAGS} -o $@ $(OBJS)
+
+%.o:%.c
+	$(CC) $(CFLAGS) -c $<
+clean:
+	-${RM} ${TARGET_LIB} ${OBJS}
+###############################################################################################
 #uruchamiamy program w ten sposób:
 LD_LIBRARY_PATH=$SCIEZKA ./zad7
 
