@@ -1,0 +1,37 @@
+#Drzewo katalogow:
+#[katalog_nadrzedny]/
+#--bin/ - pliki wykonywalne
+#--include/ - pliki naglowkowe
+#--lib/ - pliki biblioteczne
+#--src/ - pliki zrodlowe
+#--Makefile8
+#--Makefile9
+#
+#
+CC=gcc
+CFLAGS=-fPIC -Wall -c -I
+SRC=./src
+LIB=./lib
+BIN=./bin
+INC=./include
+LIBNAME=testlib
+LIBCRT= ar -cru
+
+zad12a: $(LIB)/$(LIBNAME).a
+	$(CC)  -o $(BIN)/zad12a $(LIB)/$(LIBNAME).a
+
+$(LIB)/$(LIBNAME).a:	test.o randapi.o initapi.o
+	$(LIBCRT) $(LIB)/$(LIBNAME).a test.o randapi.o initapi.o
+	rm *.o 
+
+test.o: 
+	$(CC) $(CFLAGS) $(INC) $(SRC)/test.c 
+		
+randapi.o: 
+	$(CC) $(CFLAGS) $(INC) $(SRC)/randapi.c 
+		
+initapi.o:
+	$(CC) $(CFLAGS) $(INC) $(SRC)/initapi.c
+
+clean:	
+	rm $(LIB)/*.a $(BIN)/*
