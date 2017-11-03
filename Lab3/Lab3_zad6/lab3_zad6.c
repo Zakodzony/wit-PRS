@@ -42,36 +42,6 @@ int main (int ac, char *av[])
         printf("Nie odnaleziono polecenia lub nie masz uprawnien do jego wykonania...\n");
 
         return 0;
-        /*
-        char *token, *str;
-        int isSuccess = 0;
-        while ((token = strsep(str, ":")))
-        {
-            printf("Przed while: %s\n",token);
-            if((access(strcat(token,av[1]),F_OK))==0)
-            {
-                printf("W while: %s\n",token);
-                isSuccess = 1;
-            }
-        }
-        if(!isSuccess)
-            printf("Nie odnaleziono polecenia...\n");
-        
-        -------------------------
-        char * pch;
-        printf ("Dzielimy zmienna PATH: \"%s\" na tokeny...\n",pth);
-        pch = strtok (pth,":");
-        printf("%s",pch);
-        while (pch != NULL)
-        {
-            if((access(strcat(pch,av[1]),F_OK))==0)
-            {
-                printf("%s\n",pch);
-                return 0;
-            }
-            pch = strtok (NULL, ":");
-        }*/
-    
     }
     else
     {
