@@ -7,13 +7,28 @@ void mode_to_letters(int mode, char str[]);
 
 int main(int argc, char *argv[])
 {
-	const char* const nazwa_pliku=argv[1];
-	struct stat buf;
-	char tryby[15];
-	stat(nazwa_pliku,&buf);
-	mode_to_letters(buf.st_mode,tryby);
-	printf("Plik: %s\t%s\n",argv[1],tryby);
-	return 0;	
+	if(argc == 2)
+        {
+            const char* const nazwa_pliku=argv[1];
+            struct stat buf;
+            char tryby[15];
+            if(stat(nazwa_pliku,&buf) == 0)
+            {
+            mode_to_letters(buf.st_mode,tryby);
+            printf("Plik: %s\t%s\n",argv[1],tryby);
+            return 0;
+            }
+            else
+            {
+                perror("stat");
+                exit(1);
+            }
+        }
+        else
+        {
+            printf("Blad: Nie podano nazwy nazwa_pliku\nPoprawne wywolanie: %s [nazwa_pliku]",argv[0]);
+            exit(1);
+        }	
 }
 
 
